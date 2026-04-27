@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8FADF3402F9F95C20096076D /* codeamagic.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 8FADF33F2F9F95BE0096076D /* codeamagic.yaml */; };
+		8FADF3402F9F95C20096076D /* codemagic.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 8FADF33F2F9F95BE0096076D /* codemagic.yaml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8F738E5F2F9E1827007AA6BD /* OceaneGuide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OceaneGuide.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8FADF33F2F9F95BE0096076D /* codeamagic.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = codeamagic.yaml; sourceTree = "<group>"; };
+		8FADF33F2F9F95BE0096076D /* codemagic.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = codemagic.yaml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -50,7 +50,7 @@
 		8F738E562F9E1827007AA6BD = {
 			isa = PBXGroup;
 			children = (
-				8FADF33F2F9F95BE0096076D /* codeamagic.yaml */,
+				8FADF33F2F9F95BE0096076D /* codemagic.yaml */,
 				8F738E612F9E1827007AA6BD /* OceaneGuide */,
 				8F738E602F9E1827007AA6BD /* Products */,
 			);
@@ -128,7 +128,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8FADF3402F9F95C20096076D /* codeamagic.yaml in Resources */,
+				8FADF3402F9F95C20096076D /* codemagic.yaml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
