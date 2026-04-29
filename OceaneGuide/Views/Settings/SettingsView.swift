@@ -1,7 +1,5 @@
 import SwiftUI
 
-// MARK: - Settings View
-
 struct SettingsView: View {
     @EnvironmentObject var appState: AppState
     @EnvironmentObject var authVM: AuthViewModel

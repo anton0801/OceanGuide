@@ -29,7 +29,7 @@ struct MainTabView: View {
     @EnvironmentObject var appState: AppState
 
     var body: some View {
-        ZStack(alignment: .bottom) {
+        VStack(spacing: 0) {
             Group {
                 switch selected {
                 case .dashboard: DashboardView()

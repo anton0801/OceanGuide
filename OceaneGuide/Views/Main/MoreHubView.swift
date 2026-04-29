@@ -28,6 +28,7 @@ struct MoreHubView: View {
             .navigationTitle("More")
             .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 
     private var userCard: some View {
