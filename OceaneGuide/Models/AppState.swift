@@ -83,8 +83,6 @@ final class AppState: ObservableObject {
     @AppStorage("autoStartTrip") var autoStartTrip: Bool = true
     @AppStorage("twentyFourHour") var twentyFourHour: Bool = true
 
-    @Published var didLaunch: Bool = false
-
     var themeMode: AppThemeMode {
         get { AppThemeMode(rawValue: themeModeRaw) ?? .system }
         set { themeModeRaw = newValue.rawValue; objectWillChange.send() }

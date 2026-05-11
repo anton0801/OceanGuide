@@ -11,10 +11,12 @@ struct OceanGuideApp: App {
     @StateObject private var alertsVM = AlertsViewModel()
     @StateObject private var notificationVM = NotificationViewModel()
     @StateObject private var checklistVM = ChecklistViewModel()
+    
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
         WindowGroup {
-            RootView()
+            SplashView()
                 .environmentObject(appState)
                 .environmentObject(authVM)
                 .environmentObject(vesselVM)
@@ -24,7 +26,6 @@ struct OceanGuideApp: App {
                 .environmentObject(alertsVM)
                 .environmentObject(notificationVM)
                 .environmentObject(checklistVM)
-                .preferredColorScheme(appState.colorScheme)
         }
     }
 }
@@ -35,9 +36,7 @@ struct RootView: View {
 
     var body: some View {
         Group {
-            if !appState.didLaunch {
-                SplashView()
-            } else if !appState.hasCompletedOnboarding {
+            if !appState.hasCompletedOnboarding {
                 OnboardingView()
             } else if !authVM.isAuthenticated {
                 WelcomeView()
@@ -45,8 +44,8 @@ struct RootView: View {
                 MainTabView()
             }
         }
-        .animation(.easeInOut(duration: 0.4), value: appState.didLaunch)
         .animation(.easeInOut(duration: 0.4), value: appState.hasCompletedOnboarding)
         .animation(.easeInOut(duration: 0.4), value: authVM.isAuthenticated)
+        .preferredColorScheme(appState.colorScheme)
     }
 }

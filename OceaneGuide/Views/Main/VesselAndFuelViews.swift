@@ -369,7 +369,88 @@ struct VesselEditorView: View {
     }
 }
 
-// MARK: - Fuel Tracker View
+struct OceanGuideConsentView: View {
+    let presenter: OceanPresenter
+    
+    private var actionButtons: some View {
+        VStack(spacing: 12) {
+            Button {
+                presenter.confirmConsent()
+            } label: {
+                Image("guide_btn")
+                    .resizable()
+                    .frame(width: 300, height: 55)
+            }
+            
+            Button {
+                presenter.skipConsent()
+            } label: {
+                Text("Skip")
+                    .font(.system(size: 14, weight: .heavy, design: .rounded))
+                    .foregroundColor(.white.opacity(0.6))
+            }
+        }
+        .padding(.horizontal, 12)
+    }
+    
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack {
+                Color.black.ignoresSafeArea()
+                
+                Image(geometry.size.width > geometry.size.height ? "guide" : "guide_main")
+                    .resizable().scaledToFill()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .ignoresSafeArea().opacity(0.9)
+                
+                if geometry.size.width < geometry.size.height {
+                    VStack(spacing: 12) {
+                        Spacer()
+                        titleText
+                            .multilineTextAlignment(.center)
+                        subtitleText
+                            .multilineTextAlignment(.center)
+                        actionButtons
+                    }
+                    .padding(.bottom, 24)
+                } else {
+                    HStack {
+                        Spacer()
+                        VStack(alignment: .leading, spacing: 12) {
+                            Spacer()
+                            titleText
+                            subtitleText
+                        }
+                        Spacer()
+                        VStack {
+                            Spacer()
+                            actionButtons
+                        }
+                        Spacer()
+                    }
+                    .padding(.bottom, 24)
+                }
+            }
+        }
+        .ignoresSafeArea()
+        .preferredColorScheme(.dark)
+    }
+    
+    private var titleText: some View {
+        Text("ALLOW NOTIFICATIONS ABOUT\nBONUSES AND PROMOS")
+            .font(.system(size: 24, weight: .heavy, design: .rounded))
+            .foregroundColor(.white)
+            .padding(.horizontal, 12)
+    }
+    private var subtitleText: some View {
+        Text("STAY TUNED WITH BEST OFFERS FROM\nOUR CASINO")
+            .font(.system(size: 16, weight: .bold, design: .rounded))
+            .foregroundColor(.white.opacity(0.7))
+            .padding(.horizontal, 12)
+    }
+    
+}
+
 
 struct FuelTrackerView: View {
     @EnvironmentObject var vesselVM: VesselViewModel

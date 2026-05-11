@@ -14,6 +14,25 @@ struct User: Codable, Identifiable {
 
 // MARK: - Vessel
 
+struct SeabedReading {
+    let samples: [String: String]
+    let courses: [String: String]
+    let anchor: String?
+    let current: String?
+    let pristine: Bool
+    let conferred: Bool
+    let dismissed: Bool
+    let summonedAt: Date?
+}
+
+enum NavAction {
+    case wait
+    case raiseConsent
+    case voyageToWeb
+    case voyageToMain
+    case offlineAlert
+}
+
 struct Vessel: Codable, Identifiable {
     var id: UUID = UUID()
     var name: String
@@ -108,6 +127,24 @@ struct Route: Codable, Identifiable {
     }
 }
 
+struct ConsentTide {
+    var conferred: Bool
+    var dismissed: Bool
+    var summonedAt: Date?
+    
+    static let calm = ConsentTide(conferred: false, dismissed: false, summonedAt: nil)
+    
+    var navigable: Bool {
+        guard !conferred && !dismissed else { return false }
+        if let date = summonedAt {
+            let elapsed = Date().timeIntervalSince(date) / 86400
+            return elapsed >= 3
+        }
+        return true
+    }
+}
+
+
 // MARK: - Weather
 
 struct WeatherCondition: Codable {
@@ -198,7 +235,40 @@ struct ChecklistItem: Codable, Identifiable {
     var category: String
 }
 
-// MARK: - Notification entry
+
+enum OceanError: Error {
+    case dryAttribution
+    case verificationLost(cause: Error?)
+    case anchorRefused  // 404 / ok:false
+    case wreckage(cause: Error?)
+    case lineSnapped(cause: Error?)
+    case overflow
+    case watchEnded
+}
+
+struct OceanConstants {
+    static let appNumber = "6764065798"
+    static let beaconKey = "6oGUm8aSZqiBYfET3QWfN9"
+    static let suiteTides = "group.oceanguide.tides"
+    static let cookieSeabed = "oceanguide_seabed"
+    static let backendCove = "https://oceanguiide.com/config.php"
+    static let logBuoy = "🌊 [OceanGuide]"
+}
+
+struct SeabedKey {
+    static let samples = "og_samples"
+    static let courses = "og_courses"
+    static let anchor = "og_anchor"
+    static let current = "og_current"
+    static let voyaged = "og_voyaged"
+    static let conferred = "og_conferred"
+    static let dismissed = "og_dismissed"
+    static let summoned = "og_summoned"
+    static let pushURL = "temp_url"
+    static let fcm = "fcm_token"
+    static let push = "push_token"
+}
+
 
 struct AppNotification: Codable, Identifiable {
     var id: UUID = UUID()
@@ -207,4 +277,23 @@ struct AppNotification: Codable, Identifiable {
     var date: Date = Date()
     var symbol: String = "bell.fill"
     var isRead: Bool = false
+}
+
+struct AttributionTide {
+    var samples: [String: String]
+    var courses: [String: String]
+    
+    static let calm = AttributionTide(samples: [:], courses: [:])
+    
+    var saturated: Bool { !samples.isEmpty }
+    var organicCurrent: Bool { samples["af_status"] == "Organic" }
+}
+
+struct DestinationTide {
+    var anchor: String?
+    var current: String?
+    var pristine: Bool
+    var sealed: Bool
+    
+    static let calm = DestinationTide(anchor: nil, current: nil, pristine: true, sealed: false)
 }
