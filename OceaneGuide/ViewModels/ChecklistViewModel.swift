@@ -45,6 +45,30 @@ final class ChecklistViewModel: ObservableObject {
         persist()
     }
 
+    private func seedasdsadasdd() {
+        items = [
+            // Hull & Engine
+            ChecklistItem(title: "Hull integrity", detail: "No visible cracks or damage", category: "Hull & Engine"),
+            ChecklistItem(title: "Engine oil level", detail: "Within recommended range", category: "Hull & Engine"),
+            ChecklistItem(title: "Engine cooling", detail: "Coolant topped up", category: "Hull & Engine"),
+            ChecklistItem(title: "Bilge pump operational", detail: "Test before departure", category: "Hull & Engine"),
+            // Navigation
+            ChecklistItem(title: "GPS signal acquired", detail: "Confirm position fix", category: "Navigation"),
+            ChecklistItem(title: "Compass calibrated", detail: "Heading deviation < 5°", category: "Navigation"),
+            ChecklistItem(title: "Charts loaded", detail: "Region for planned route", category: "Navigation"),
+            ChecklistItem(title: "Route plan filed", detail: "Share with shore contact", category: "Navigation"),
+            // Fuel & Supplies
+            ChecklistItem(title: "Fuel tank topped up", detail: "Plus reserve for return", category: "Fuel & Supplies"),
+            ChecklistItem(title: "Fresh water aboard", detail: "Min 2 L per person/day", category: "Fuel & Supplies"),
+            ChecklistItem(title: "Provisions packed", detail: "Food for trip duration", category: "Fuel & Supplies"),
+            // Weather & Conditions
+            ChecklistItem(title: "Weather forecast checked", detail: "For departure window", category: "Weather & Conditions"),
+            ChecklistItem(title: "Tide schedule reviewed", detail: "Departure & arrival ports", category: "Weather & Conditions"),
+            ChecklistItem(title: "Wind conditions acceptable", detail: "Below vessel limits", category: "Weather & Conditions")
+        ]
+        persist()
+    }
+
     func toggle(_ item: ChecklistItem) {
         guard let idx = items.firstIndex(where: { $0.id == item.id }) else { return }
         items[idx].isChecked.toggle()
